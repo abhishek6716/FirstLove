@@ -3,7 +3,7 @@ using namespace std;
 
 void sort012(int arr[], int n){
     int i=0; int k=0; int j=n-1;
-    while(k<n){
+    while(k<j){
         if(arr[k]==0){
             if(arr[i]==0){
                 i++;
@@ -37,9 +37,9 @@ void sort012(int arr[], int n){
 }
 
 int main(){
-    int arr[]={0,1,2,3,0,0,4,0,5,0,6};
+    int arr[]={0,1,2,1,0,0,2,0,2,0,1};
     sort012(arr, 11);
     for(int i=0; i<11; i++){
-        cout<<arr[i];
+        cout<<arr[i]<<" ";
     }
 }
