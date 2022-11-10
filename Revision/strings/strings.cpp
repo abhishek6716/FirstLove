@@ -23,6 +23,16 @@ bool isPalindrome(char str[]){
     return true;
 }
 
+void replaceChar(char str[], char s1, char s2){
+    for(int i=0; str[i]!='\0'; i++){
+        if(str[i]==s1){
+            str[i]=s2;
+        }
+    }
+}
+
+
+
 int main(){
     char str[100];
     cin>>str;
