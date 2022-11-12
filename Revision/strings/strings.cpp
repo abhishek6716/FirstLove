@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cstring>
 using namespace std;
 
 int lengthOfStr(char str[]){
@@ -80,11 +81,37 @@ void reverseStringWordWise(char input[]){
     reverse(input, 0, i-1);
 }
 
+void printAllPrefixes(char str[]){
+    for(int i=0; str[i] != '\0'; i++){
+        for(int j=0; j<=i; j++){
+            cout<<str[j];
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    
+    for(int i=0; str[i] != '\0'; i++){
+        for(int j=i; str[j] != '\0'; j++){
+            cout<<str[j];
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+
+    for(int i=0; str[i] != '\0'; i++){
+        for(int j=i; j>=0; j--){
+            cout<<str[j];
+        }
+        cout<<endl;
+    }
+}
+
 int main(){
     char str[100];
     // cin>>str;
     // cout<<lengthOfStr(str);
     cin.getline(str, 100);
-    trimSpaces(str);
-    cout<<str;
+    // trimSpaces(str);
+    // cout<<str;
+    printAllPrefixes(str);
 }
