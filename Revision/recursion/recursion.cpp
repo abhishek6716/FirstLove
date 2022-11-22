@@ -80,15 +80,44 @@ int sumOfArr1(int arr[], int n){
     return sumOfArr1(arr+1, n-1)+arr[0];
 }
 
+int sumOfArr2(int arr[], int n){
+    if(n==1){
+        return arr[0];
+    }
+    return sumOfArr2(arr, n-1)+arr[n-1];
+}
+
+bool isPresent(int arr[],int n, int x){
+    if(n==1){
+        if(arr[0]==x){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    bool smallAns = isPresent(arr+1, n-1, x);
+    if(smallAns){
+        return true;
+    } else{
+        if(arr[0]==x){
+            return true;
+        } else{
+            return false;
+        }
+    }
+}
+
 int main(){
     // int x; cin>>x;
-    int n; cin>>n;
-    int arr[5]={1,2,3,4,5};
+    // int n; cin>>n;
+    int arr[6]={1,2,3,4,5,6};
     /// x^n
     // cout<<power(x, n);
     // printNNaturalNumbers(n);
     // printNNaturalNumbersInReverse(n);
     // cout<<noOfDigits(n)<<" ";
     // cout<<nthFiboNo(n)<<" ";
-    cout<<sumOfArr1(arr, 5)<<" ";
+    // cout<<sumOfArr2(arr, 6)<<" ";
+    cout<<isPresent(arr, 6, 10)<<" ";
 }
