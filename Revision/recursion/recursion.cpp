@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+#include<cmath>
 
 int power(int x, int n){
     if(n==1){
@@ -192,6 +193,40 @@ int findAllIndexes2(int arr[], int n, int x, int output[]){
     }
 }
 
+int multiplicationRec(int a, int b){
+    if(a==0){
+        return 0;
+    }
+    int smallAns=multiplicationRec(a-1, b);
+    return smallAns+b;
+}
+
+int countZeroes(int n){
+    if(n/10 == 0){
+        if(n==0){
+            return 1;
+        } else{
+            return 0;
+        }
+    }
+
+    int smallAns = countZeroes(n/10);
+    if(n%10 == 0){
+        return smallAns+1;
+    } else{
+        return smallAns;
+    }
+}
+
+double geometricSum(int k){
+    if(k==0){
+        return 1;
+    }
+    double ans=geometricSum(k-1);
+    double a=1/(pow(2, k));
+    return ans+a;
+}
+
 int main(){
     // int x; cin>>x;
     // int n; cin>>n;
@@ -205,10 +240,13 @@ int main(){
     // cout<<nthFiboNo(n)<<" ";
     // cout<<sumOfArr2(arr, 6)<<" ";
     // cout<<isPresent(arr, 6, 10)<<" ";
-    int resLen = findAllIndexes(arr, 8, 6, output);
-    cout<<resLen<<endl;
-    for(int i=0; i<resLen; i++){
-        cout<<output[i]<<" ";
-    }
+    // int resLen = findAllIndexes(arr, 8, 6, output);
+    // cout<<resLen<<endl;
+    // for(int i=0; i<resLen; i++){
+    //     cout<<output[i]<<" ";
+    // }
+    // cout<<multiplicationRec(5, 98)<<endl;
 
+    // cout<<countZeroes(90660780)<<endl;
+    cout<<geometricSum(3)<<endl;
 }
