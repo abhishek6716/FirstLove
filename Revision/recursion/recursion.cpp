@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 #include<cmath>
+#include<cstring>
 
 int power(int x, int n){
     if(n==1){
@@ -227,11 +228,42 @@ double geometricSum(int k){
     return ans+a;
 }
 
+bool helper(char input[], int start, int end)
+{
+    if (end <= 0)
+    {
+        return true;
+    }
+    if (input[start] != input[end])
+    {
+        return false;
+    }
+    return helper(input, start + 1, end - 1);
+}
+bool Ispelindrome(char input[])
+{
+    int len = 0;
+    for (int i = 0; input[i] != '\0'; i++)
+    {
+        len++;
+    }
+    cout << len << endl;
+    return helper(input, 0, len - 1);
+}
+
+int sumOfDigits(int n){
+    if(n>=0 && n<=9){
+        return n;
+    }
+    return sumOfDigits(n/10) + n%10;
+}
+
 int main(){
     // int x; cin>>x;
     // int n; cin>>n;
     int arr[8]={6,2,7,4,8,6,6,6};
     int output[100];
+    char str[8]={'a', 'b', 'c', 'd', 'd', 'c', 'b', 'a'};
     /// x^n
     // cout<<power(x, n);
     // printNNaturalNumbers(n);
@@ -246,7 +278,8 @@ int main(){
     //     cout<<output[i]<<" ";
     // }
     // cout<<multiplicationRec(5, 98)<<endl;
-
     // cout<<countZeroes(90660780)<<endl;
-    cout<<geometricSum(3)<<endl;
+    // cout<<geometricSum(3)<<endl;
+    // cout<<Ispelindrome(str)<<endl;
+    cout<<sumOfDigits(12345)<<endl;
 }
