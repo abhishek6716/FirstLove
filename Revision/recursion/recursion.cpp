@@ -258,9 +258,83 @@ int sumOfDigits(int n){
     return sumOfDigits(n/10) + n%10;
 }
 
+void replacePi(char str[]){
+    if(strlen(str)<=1){
+        return;
+    }
+    replacePi(str+1);
+    if(str[0]=='p' && str[1]=='i'){
+        for(int i=strlen(str); i>=0; i--){
+            str[i+2]=str[i];
+        }
+        str[0]='3';
+        str[1]='.';
+        str[2]='1';
+        str[3]='4';
+    }
+}
+
+void removeX(char str[]){
+    if(strlen(str) <=0){
+        return;
+    }
+    removeX(str+1);
+    if(str[0]=='x'){
+        for(int i=0; i<strlen(str); i++){
+            str[i]=str[i+1];
+        }
+    }
+}
+
+int stringToNoHelper(char str[], int n){
+    if(n==1){
+        return str[0]-'0';
+    }
+    int smallAns = stringToNoHelper(str, n-1);
+    return smallAns*10+(str[n-1]-'0');
+}
+
+int stringToNo(char str[]){
+    return stringToNoHelper(str, strlen(str));
+}
+
+int stringToNo2(char input[]){
+    int n=strlen(input);
+    if(n==1){
+        int a=input[0]-'0';
+        return a;
+    }
+    int y=stringToNo2(input+1);
+    int x=input[0]-'0';
+    x=x*pow(10, n-1)+y;
+    return x;
+}
+
+void pairStar(char str[]){
+    if(strlen(str)<=1){
+        return;
+    }
+    pairStar(str+1);
+    if(str[0]==str[1]){
+        for(int i=strlen(str); i>0; i--){
+            str[i+1]=str[i];
+        }
+        str[1]='*';
+    }
+}
+
+void towerOfHanoi(int n, char source, char auxiliary, char destination) {
+    if (n == 0){  
+        return;  
+    }  
+    towerOfHanoi(n - 1, source, destination, auxiliary);  
+    cout<<source<<" "<<destination<< endl;  
+    towerOfHanoi(n - 1, auxiliary, source, destination); 
+}
+
 int main(){
     // int x; cin>>x;
-    // int n; cin>>n;
+    char n[100]; cin>>n;
     int arr[8]={6,2,7,4,8,6,6,6};
     int output[100];
     char str[8]={'a', 'b', 'c', 'd', 'd', 'c', 'b', 'a'};
@@ -281,5 +355,9 @@ int main(){
     // cout<<countZeroes(90660780)<<endl;
     // cout<<geometricSum(3)<<endl;
     // cout<<Ispelindrome(str)<<endl;
-    cout<<sumOfDigits(12345)<<endl;
+    // cout<<sumOfDigits(12345)<<endl;
+    // removeX(n);
+    // cout<<stringToNo(n)<<endl;
+    pairStar(n);
+    cout<<n<<endl;
 }
