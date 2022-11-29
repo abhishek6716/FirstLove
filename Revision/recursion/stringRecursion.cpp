@@ -1,0 +1,147 @@
+#include<iostream>
+using namespace std;
+
+void ReplaceChar(char str[], char c1, char c2){
+    if(str[0]=='\0'){
+        return;
+    }
+    ReplaceChar(str+1, c1, c2);
+    if(str[0]==c1){
+        str[0]=c2;
+    }
+}
+
+void removeConseDup(char str[]){
+    if(str[0]=='\0'){
+        return;
+    }
+    removeConseDup(str+1);
+    if(str[0]==str[1]){
+        for(int i=0; str[i]!='\0'; i++){
+            str[i]=str[i+1];
+        }
+    }
+}
+
+void merge(int input[], int si, int m, int ei){
+    int i=si, j=m+1, k=0;
+    int arr[ei-si+1];
+    while(i<=m && j<=ei){
+        if(input[i]>input[j]){
+            arr[k]=input[j];
+            j++;
+            k++;
+        }
+        else{
+            arr[k]=input[i];
+            i++;
+            k++;
+        }
+    }
+    if(i<=m){
+        for(; i<=m; i++){
+            arr[k]=input[i];
+            k++;
+        }
+    }
+    if(j<=ei){
+        for(; j<=ei; j++){
+            arr[k]=input[j];
+            k++;
+        }
+    }
+    // copying back to real array
+   int l=0;
+    for(int i=si; i<=ei; i++ ){
+        input[i]=arr[l];
+        l++;
+    }
+    
+}
+void sorting(int input[], int si, int ei){
+    if(si>=ei){
+        return;
+    }
+    int m=(si+ei)/2;
+    sorting(input, si, m);
+    sorting(input, m+1, ei);
+    merge(input, si, m, ei);
+}
+void mergeSort(int input[], int size){
+	sorting(input, 0, size-1);    
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+int partitionArray(int input[], int start, int end)
+{
+    int pivot = input[start];
+    int count = 0;
+    for (int i = start + 1; i <= end; i++)
+    {
+        if (input[i] <= pivot)
+        {
+            count++;
+        }
+    }
+    int pivotIndex = start + count;
+    int temp = input[start];
+    input[start] = input[pivotIndex];
+    input[pivotIndex] = temp;
+
+    int i = start, j = end;
+    while (i <= pivotIndex && j >= pivotIndex)
+    {
+        while (input[i] <= pivot)
+        {
+            i++;
+        }
+        while (input[j] > pivot)
+        {
+            j--;
+        }
+        if (i < pivotIndex && j > pivotIndex)
+        {
+            int temp = input[i];
+            input[i] = input[j];
+            input[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    return pivotIndex;
+}
+void quickSort(int input[], int start, int end)
+{
+    if (start >= end)
+    {
+        return;
+    }
+    int pivotIndex = partitionArray(input, start, end);
+    quickSort(input, start, pivotIndex - 1);
+    quickSort(input, pivotIndex + 1, end);
+}
+void quickSort(int input[], int n)
+{
+    quickSort(input, 0, n - 1);
+}
+
+int main(){
+    // char str[100];
+    // cin>>str;
+    // char c1, c2;
+    // cin>>c1>>c2;
+    // ReplaceChar(str, c1, c2);
+    // removeConseDup(str);
+    // cout<<str<<endl;
+
+    int arr[100];
+    int n; cin>>n;
+    for(int i=0; i<n; i++){
+        cin>>arr[i];
+    }
+    mergeSort(arr, n);
+    for(int i=0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
+}
