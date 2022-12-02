@@ -23,6 +23,8 @@ void removeConseDup(char str[]){
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
 void merge(int input[], int si, int m, int ei){
     int i=si, j=m+1, k=0;
     int arr[ei-si+1];
@@ -126,6 +128,75 @@ void quickSort(int input[], int n)
     quickSort(input, 0, n - 1);
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+
+int subStrings(string s, string res[]){
+    if(s.empty()){
+        res[0]="";
+        return 1;
+    }
+    int subAns = subStrings(s.substr(1), res);
+    for(int i=0; i<subAns; i++){
+        res[i+subAns]=s[0]+res[i];
+    }
+    return 2*subAns;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+string getString(int n){
+    if(n==2){
+        return "abc";
+    }
+    if(n==3){
+        return "def";
+    }
+    if(n==4){
+        return "ghi";
+    }
+    if(n==5){
+        return "jkl";
+    }
+    if(n==6){
+        return "mno";
+    }
+    if(n==7){
+        return "pqrs";
+    }
+    if(n==8){
+        return "tuv";
+    }
+    if(n==9){
+        return "wxyz";
+    }
+    return " ";
+}
+
+int keyPad(int n, string res[]){
+    if(n==0){
+        res[0]="";
+        return 1;
+    }
+    int smallAns = keyPad(n/10, res);
+    string options = getString(n%10);
+    for(int i=0; i<options.length()-1; i++){
+        for(int j=0; j<smallAns; j++){
+            res[j+(i+1)*smallAns]=res[j];
+        }
+    }
+
+    int k=0;
+    for(int i=0; i<options.length(); i++){
+        for(int j=0; j<smallAns; j++){
+            res[k]=res[k]+options[i];
+            k++;
+        }
+    }
+    return smallAns*options.length();
+}
+
+
+
 int main(){
     // char str[100];
     // cin>>str;
@@ -135,13 +206,24 @@ int main(){
     // removeConseDup(str);
     // cout<<str<<endl;
 
-    int arr[100];
-    int n; cin>>n;
-    for(int i=0; i<n; i++){
-        cin>>arr[i];
-    }
-    mergeSort(arr, n);
-    for(int i=0; i<n; i++){
-        cout<<arr[i]<<" ";
+    // int arr[100];
+    // int n; cin>>n;
+    // for(int i=0; i<n; i++){
+    //     cin>>arr[i];
+    // }
+    // mergeSort(arr, n);
+    // for(int i=0; i<n; i++){
+    //     cout<<arr[i]<<" ";
+    // }
+
+    // string s;
+    // cin>>s;
+    int n;
+    cin>>n;
+    string* res = new string[1000];
+    // int cnt = subStrings(s, res);
+    int cnt = keyPad(n, res);
+    for(int i=0; i<cnt; i++){
+        cout<<res[i]<<endl;
     }
 }
