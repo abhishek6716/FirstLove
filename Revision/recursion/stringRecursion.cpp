@@ -142,6 +142,15 @@ int subStrings(string s, string res[]){
     return 2*subAns;
 }
 
+void printSubSeq(string input, string output){
+    if(input.length()==0){
+        cout<<output<<endl;
+        return;
+    }
+    printSubSeq(input.substr(1), output);
+    printSubSeq(input.substr(1), output+input[0]);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 string getString(int n){
@@ -197,6 +206,61 @@ int keyPad(int n, string res[]){
 
 
 
+void PrintKeypad(int n, string outputSoFar){
+    if(n==0){
+        cout<<outputSoFar<<endl;
+        return;
+    }
+    string options=getString(n%10);
+    for(int i=0; i<options.size(); i++){
+        PrintKeypad(n/10, options[i]+outputSoFar);
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+bool checkAB(char input[]){
+    if(input[0]=='\0'){
+        return false;
+    }
+    if(input[0]=='a'){
+        if(input[1]=='\0'){
+            return true;
+        } else if(input[1]=='a'){
+            return checkAB(input+1);
+        } else if(input[1]=='b' && input[2]=='b'){
+            if(input[3]=='a'){
+                return checkAB(input+3);
+            } else{
+                return true;
+            }
+        } else{
+            return false;
+        }
+    } else{
+        return false;
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+int staircase(int n){
+    if(n==1 || n==2){
+        return n;
+    }
+    if(n==3){
+        return 4;
+    }
+    return staircase(n-1)+staircase(n-2)+staircase(n-3);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+int binarySearchRecursive(int arr[], int n, int x){
+    
+}
+
 int main(){
     // char str[100];
     // cin>>str;
@@ -218,12 +282,20 @@ int main(){
 
     // string s;
     // cin>>s;
-    int n;
-    cin>>n;
-    string* res = new string[1000];
-    // int cnt = subStrings(s, res);
-    int cnt = keyPad(n, res);
-    for(int i=0; i<cnt; i++){
-        cout<<res[i]<<endl;
-    }
+    // int n;
+    // cin>>n;
+    // string* res = new string[1000];
+    // // int cnt = subStrings(s, res);
+    // int cnt = keyPad(n, res);
+    // for(int i=0; i<cnt; i++){
+    //     cout<<res[i]<<endl;
+    // }
+
+    // char str[100];
+    // cin>>str;
+    // cout<<checkAB(str);
+
+    // int n;
+    // cin>>n;
+    // cout<<staircase(n)<<endl;
 }
