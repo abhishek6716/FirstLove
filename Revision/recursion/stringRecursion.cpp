@@ -1,4 +1,6 @@
 #include<iostream>
+#include<cmath>
+#include<bits/stdc++.h>
 using namespace std;
 
 void ReplaceChar(char str[], char c1, char c2){
@@ -277,7 +279,21 @@ int SearchRecursive(int arr[], int n, int x){
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-
+int subSet(int arr[], int n, int output[][20]){
+    if(n==0){
+        output[0][0]=0;
+        return 1;
+    }
+    int subAns=subSet(arr+1, n-1, output);
+    for(int i=0; i<subAns; i++){
+        output[i+subAns][0]=output[i][0]+1;
+        output[i+subAns][1]=arr[0];
+        for(int j=2; j<output[i][0]+2; j++){
+            output[i+subAns][j]=output[i][j-1];
+        }
+    }
+    return 2*subAns;
+}
 
 int main(){
     // char str[100];
@@ -316,11 +332,24 @@ int main(){
     // int n;
     // cin>>n;
     // cout<<staircase(n)<<endl;
+   
     int n; cin>>n;
-    int arr[100];
+    int arr[50];
     for(int i=0; i<n; i++){
         cin>>arr[i];
     }
-    int x; cin>>x;
-    cout<<SearchRecursive(arr, n, x)<<endl;
+    int output[20][20];
+    for(int i=0; i<20; i++){
+        for(int j=0; j<20; j++){
+            output[i][j]=-1;
+        }
+    }
+    int ans=subSet(arr, n, output);
+    cout<<ans<<endl;
+    for(int i=0; i<ans; i++){
+        for(int j=1; j<output[i][0]+1; j++){
+            cout<<output[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 }
