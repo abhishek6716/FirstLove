@@ -257,9 +257,27 @@ int staircase(int n){
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-int binarySearchRecursive(int arr[], int n, int x){
-    
+int binarySearchRecursive(int arr[], int si, int ei, int x){
+    if(si>ei){
+        return -1;
+    }
+    int mid=(si+ei)/2;
+    if(arr[mid]==x){
+        return mid;
+    } else if(arr[mid]>x){
+        return binarySearchRecursive(arr, si, mid-1, x);
+    } else{
+        return binarySearchRecursive(arr, mid+1, ei, x);
+    }
 }
+
+int SearchRecursive(int arr[], int n, int x){
+    return binarySearchRecursive(arr, 0, n-1, x);
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
 
 int main(){
     // char str[100];
@@ -298,4 +316,11 @@ int main(){
     // int n;
     // cin>>n;
     // cout<<staircase(n)<<endl;
+    int n; cin>>n;
+    int arr[100];
+    for(int i=0; i<n; i++){
+        cin>>arr[i];
+    }
+    int x; cin>>x;
+    cout<<SearchRecursive(arr, n, x)<<endl;
 }
