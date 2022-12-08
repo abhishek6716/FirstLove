@@ -295,6 +295,29 @@ int subSet(int arr[], int n, int output[][20]){
     return 2*subAns;
 }
 
+void printSubSetHelper(int input[], int size, int output[], int oSize, int startIndex){
+    if(startIndex==size){
+        for(int i=0; i<oSize; i++){
+            cout<<output[i]<<" ";
+        }
+        cout<<endl;
+        return;
+    }
+    int smallOutput[40], smallOutputSize=0;
+    printSubSetHelper(input, size, output, oSize, startIndex+1);
+
+    int i;
+    for(int i=0; i<oSize; i++){
+        smallOutput[i]=output[i];
+    }
+    smallOutput[i]=input[startIndex];
+    printSubSetHelper(input, size, output, oSize+1, startIndex+1);
+}
+void printSubSet(int input[], int size){
+    int output[1000];
+    return printSubSetHelper(input, size, output, 0, 0);
+}
+
 int main(){
     // char str[100];
     // cin>>str;
@@ -333,23 +356,27 @@ int main(){
     // cin>>n;
     // cout<<staircase(n)<<endl;
    
-    int n; cin>>n;
-    int arr[50];
-    for(int i=0; i<n; i++){
-        cin>>arr[i];
-    }
-    int output[20][20];
-    for(int i=0; i<20; i++){
-        for(int j=0; j<20; j++){
-            output[i][j]=-1;
-        }
-    }
-    int ans=subSet(arr, n, output);
-    cout<<ans<<endl;
-    for(int i=0; i<ans; i++){
-        for(int j=1; j<output[i][0]+1; j++){
-            cout<<output[i][j]<<" ";
-        }
-        cout<<endl;
-    }
+    // int n; cin>>n;
+    // int arr[50];
+    // for(int i=0; i<n; i++){
+    //     cin>>arr[i];
+    // }
+    // int output[20][20];
+    // for(int i=0; i<20; i++){
+    //     for(int j=0; j<20; j++){
+    //         output[i][j]=-1;
+    //     }
+    // }
+    // int ans=subSet(arr, n, output);
+    // cout<<ans<<endl;
+    // for(int i=0; i<ans; i++){
+    //     for(int j=1; j<output[i][0]+1; j++){
+    //         cout<<output[i][j]<<" ";
+    //     }
+    //     cout<<endl;
+    // }
+
+    int arr[]={1,2,3};
+    int n=3;
+    printSubSet(arr, n);
 }
