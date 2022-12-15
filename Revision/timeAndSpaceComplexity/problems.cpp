@@ -147,8 +147,26 @@ void TripletSum(int input[], int size, int x){
     }
 }
 
+void rotateArrLeftByK(int arr[], int n, int k){
+    for(int i=0; i<k; i++){
+        int temp=arr[0];
+        for(int j=1; j<n; j++){
+            arr[j-1]=arr[j];
+        }
+        arr[n-1]=temp;
+    }
+}
+
+void rotateArrLeftByK2(int arr[], int n, int k){
+    int temp[100];
+}
+
 int main(){
-    int arr[100]={6,1,6,3,4,3,1};
+    int arr[100]={1,2,3,4,5,6,7};
     int n=7;
-    cout<<findUnique(arr, n);
+    rotateArrLeftByK(arr, n, 3);
+    for(int i=0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
+
 }
