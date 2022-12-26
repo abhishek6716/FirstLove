@@ -164,6 +164,119 @@ Node* DeleteNode_rec(Node *head, int pos){                                     /
     return head;
 }
 
+int findIndex(Node *head, int n){
+    Node *temp=head;
+    int cnt=0;
+    while (temp!=NULL){
+        if(temp->data==n){
+            return cnt;
+        }
+        temp=temp->next;
+        cnt++;
+    }
+}
+
+Node* appendLastNtoFirst(Node *head, int n){
+    if(head==NULL || n==0){
+        return head;
+    }
+    Node *p1=head;
+    Node *p2=head;
+    Node *initialHead=head;
+    for(int i=0; i<n; i++){
+        p1=p1->next;
+    }
+    while(p1->next!=NULL){
+        p1=p1->next;
+        p2=p2->next;
+    }
+    Node *temp=p2->next;
+    p2->next=NULL;
+    p1->next=initialHead;
+    head=temp;
+    return head;
+}
+
+Node* RemoveDuplicates(Node* head){                                            // remove duplicates
+    if(head==NULL){                                                            // input:  1 1 2 2 3 3 4 5 5 6
+        return head;                                                           // output: 1 2 3 4 5 6
+    }
+    Node* temp=head;
+    while(temp->next!=NULL){
+        if(temp->data==temp->next->data){
+            Node* a=temp->next;
+            temp->next=temp->next->next;
+            delete a;
+        }
+        else{
+            temp=temp->next;
+        }
+    }
+    return head;
+}
+
+void PrintReverse(Node* head){                                                 // Print Reverse
+    if(head==NULL){
+        return;
+    }
+    PrintReverse(head->next);
+    cout<<head->data<<" ";
+}
+
+Node* ReverseLinkedList(Node* head){                                           // reverselinkedlist
+    Node* curr=head;
+    Node* prev=NULL;
+    Node* fwd=NULL;
+
+    while(curr!=NULL){
+        fwd=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=fwd;
+    }
+    return prev;
+}
+
+bool isPelindrome(Node *head){
+    if(head==NULL || head->next==NULL){
+        return true;
+    }
+    Node* fast=head;
+    Node* slow=head;
+    while(fast->next!=NULL && fast->next->next!=NULL){
+        fast=fast->next->next;
+        slow=slow->next;
+    }
+
+    Node* secondHead=slow->next;
+    slow->next=NULL;
+    secondHead=ReverseLinkedList(secondHead);
+
+        //compare the two sublists
+    Node* firstSubList=head;
+    Node* secondSubList=secondHead;
+    bool ans=true;
+
+    while(secondSubList!=NULL){
+        if(firstSubList->data != secondSubList->data){
+            ans=false;
+            break;
+        }
+        firstSubList=firstSubList->next;
+        secondSubList=secondSubList->next;
+    }
+
+    //rejoins the two sublists
+    firstSubList=head;
+    secondSubList=ReverseLinkedList(secondHead);
+
+    while(firstSubList->next != NULL){
+        firstSubList=firstSubList->next;
+    }
+    firstSubList->next=secondSubList;
+    return ans;
+}
+
 int main(){
     // Node n1(100);
     // Node n2(200);
